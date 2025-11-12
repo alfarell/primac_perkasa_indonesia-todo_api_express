@@ -7,6 +7,6 @@ const router = express.Router();
 const todosService = new TodosService();
 const todosController = new TodosController(todosService);
 
-router.get("/todos", todosController.getAll.bind(todosController));
+router.get("/", todosController.getAll.bind(todosController));
 
 module.exports = router;
