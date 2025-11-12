@@ -1,8 +1,14 @@
 const { StatusCodes } = require("http-status-codes");
 
 class TodosController {
-  static getAll(req, res, next) {
-    res.status(StatusCodes.OK).json({ todos: "todos" });
+  constructor(todosService) {
+    this.todosService = todosService;
+  }
+
+  getAll(req, res, next) {
+    const todos = this.todosService.getAllTodo();
+
+    res.status(StatusCodes.OK).json({ data: todos });
   }
 }
 
