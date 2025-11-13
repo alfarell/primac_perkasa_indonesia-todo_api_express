@@ -11,7 +11,8 @@ class TodosService {
 
   addTodo(payload) {
     const newTodo = {
-      ...payload,
+      title: payload.title,
+      description: payload?.description || "",
       id: uuid(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

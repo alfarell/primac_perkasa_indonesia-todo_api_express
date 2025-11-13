@@ -1,78 +1,56 @@
-const { StatusCodes, ReasonPhrases } = require("http-status-codes");
-const { validate } = require("uuid");
+const { body, param } = require("express-validator");
+const { generateValidator } = require("./base.validator");
 
 class TodosValidator {
-  static getAll(req, res, next) {
-    next();
+  static get getAll() {
+    return generateValidator([]);
   }
 
-  static create(req, res, next) {
-    const body = req.body;
-
-    if (body?.title?.length < 1) {
-      return res.status(StatusCodes.BAD_REQUEST).send({
-        error: "property 'title' in body payload should not be empty",
-      });
-    }
-    if (!body?.title) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'title' in body payload is required" });
-    }
-    if (!body?.description) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'description' in body payload is required" });
-    }
-
-    next();
+  static get create() {
+    return generateValidator([
+      body("title")
+        .notEmpty()
+        .withMessage("Title is required")
+        .isString()
+        .withMessage("Title should be string")
+        .isLength({ min: 1 })
+        .withMessage("Title should not be empty"),
+      body("description")
+        .optional()
+        .isString()
+        .withMessage("Description should be string"),
+    ]);
   }
 
-  static update(req, res, next) {
-    const params = req.params;
-    const body = req.body;
-
-    const id = params?.id;
-
-    if (!id) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "params 'id' in /todos/:id is required" });
-    }
-    if (!validate(id)) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "params 'id' is not a valid uuid" });
-    }
-    if (body?.title?.length < 1) {
-      return res.status(StatusCodes.BAD_REQUEST).send({
-        error: "property 'title' in body payload should not be empty",
-      });
-    }
-    if (!body?.title && !body?.description) {
-      return res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
-    }
-
-    next();
+  static get update() {
+    return generateValidator([
+      param("id")
+        .notEmpty()
+        .withMessage("Param id is required")
+        .isUUID()
+        .withMessage("Invalid uuid of param id"),
+      body("title")
+        .notEmpty()
+        .withMessage("Title is required")
+        .isString()
+        .withMessage("Title should be string")
+        .isLength({ min: 1 })
+        .withMessage("Title should not be empty"),
+      body("description")
+        .optional()
+        .isString()
+        .withMessage("Description should be string"),
+    ]);
   }
 
-  static delete(req, res, next) {
-    const params = req.params;
-
-    const id = params?.id;
-
-    if (!id) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "params 'id' in /todos/:id is required" });
-    }
-    if (!validate(id)) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "params 'id' is not a valid uuid" });
-    }
-
-    next();
+  static get delete() {
+    return generateValidator([
+      param("id")
+        .notEmpty()
+        .withMessage("Param id is required")
+        .isUUID()
+        .withMessage("Invalid uuid of param id"),
+    ]);
   }
 }
 
