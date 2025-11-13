@@ -10,5 +10,6 @@ const todosController = new TodosController(todosService);
 router.get("/", todosController.getAll.bind(todosController));
 router.post("/", todosController.create.bind(todosController));
 router.patch("/:id", todosController.update.bind(todosController));
+router.delete("/:id", todosController.delete.bind(todosController));
 
 module.exports = router;

@@ -62,6 +62,28 @@ class TodosController {
 
     res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
   }
+
+  delete(req, res, next) {
+    const params = req.params;
+
+    const id = params?.id;
+
+    if (!id) {
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .send({ error: "params 'id' in /todos/:id is required" });
+    }
+
+    const deleteStatus = this.todosService.deleteTodo(id);
+
+    if (deleteStatus < 0) {
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .send({ error: `Todo with id: '${id}' not found` });
+    }
+
+    res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
+  }
 }
 
 module.exports = TodosController;

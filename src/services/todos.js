@@ -30,6 +30,16 @@ class TodosService {
 
     return findTodosIdx;
   }
+
+  deleteTodo(id) {
+    const findTodosIdx = this.todos.findIndex((todo) => todo.id === id);
+
+    if (findTodosIdx < 0) return findTodosIdx;
+
+    this.todos.splice(findTodosIdx, 1);
+
+    return findTodosIdx;
+  }
 }
 
 module.exports = TodosService;
