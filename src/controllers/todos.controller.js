@@ -5,13 +5,13 @@ class TodosController {
     this.todosService = todosService;
   }
 
-  getAll(req, res, next) {
+  getAll(_, res) {
     const todos = this.todosService.getAllTodo();
 
     res.status(StatusCodes.OK).json({ data: todos });
   }
 
-  create(req, res, next) {
+  create(req, res) {
     const body = req.body;
 
     const id = this.todosService.addTodo(body);
@@ -19,7 +19,7 @@ class TodosController {
     res.status(StatusCodes.CREATED).send({ id });
   }
 
-  update(req, res, next) {
+  update(req, res) {
     const params = req.params;
     const body = req.body;
 
@@ -35,7 +35,7 @@ class TodosController {
     res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
   }
 
-  delete(req, res, next) {
+  delete(req, res) {
     const params = req.params;
 
     const id = params?.id;
