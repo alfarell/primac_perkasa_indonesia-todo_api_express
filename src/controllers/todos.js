@@ -15,12 +15,12 @@ class TodosController {
     const body = req.body;
 
     if (!body?.title) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "property 'title' is required" });
     }
     if (!body?.description) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "property 'description' is required" });
     }
@@ -37,17 +37,17 @@ class TodosController {
     const id = params?.id;
 
     if (!id) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "params 'id' in /todos/:id is required" });
     }
     if (!body?.title) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "property 'title' is required" });
     }
     if (!body?.description) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "property 'description' is required" });
     }
@@ -55,7 +55,7 @@ class TodosController {
     const updateStatus = this.todosService.updateTodo(id, body);
 
     if (updateStatus < 0) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: `Todo with id: '${id}' not found` });
     }
@@ -69,7 +69,7 @@ class TodosController {
     const id = params?.id;
 
     if (!id) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "params 'id' in /todos/:id is required" });
     }
@@ -77,7 +77,7 @@ class TodosController {
     const deleteStatus = this.todosService.deleteTodo(id);
 
     if (deleteStatus < 0) {
-      res
+      return res
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: `Todo with id: '${id}' not found` });
     }
