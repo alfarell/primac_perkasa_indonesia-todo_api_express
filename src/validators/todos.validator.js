@@ -1,4 +1,4 @@
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 const { validate } = require("uuid");
 
 class TodosValidator {
@@ -48,6 +48,9 @@ class TodosValidator {
       return res.status(StatusCodes.BAD_REQUEST).send({
         error: "property 'title' in body payload should not be empty",
       });
+    }
+    if (!body?.title && !body?.description) {
+      return res.status(StatusCodes.NO_CONTENT).send(ReasonPhrases.NO_CONTENT);
     }
 
     next();
