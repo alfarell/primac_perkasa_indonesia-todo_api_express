@@ -10,11 +10,16 @@ class TodosService {
   }
 
   addTodo(payload) {
-    payload.id = uuid();
-    payload.createdAt = new Date().toISOString();
-    payload.updatedAt = new Date().toISOString();
+    const newTodo = {
+      ...payload,
+      id: uuid(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
 
-    this.todos.push(payload);
+    this.todos.push(newTodo);
+
+    return newTodo.id;
   }
 
   updateTodo(id, payload) {

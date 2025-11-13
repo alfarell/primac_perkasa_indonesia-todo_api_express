@@ -14,9 +14,9 @@ class TodosController {
   create(req, res, next) {
     const body = req.body;
 
-    this.todosService.addTodo(body);
+    const id = this.todosService.addTodo(body);
 
-    res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
+    res.status(StatusCodes.CREATED).send({ id });
   }
 
   update(req, res, next) {
