@@ -1,3 +1,3 @@
-const TodosService = require("./todos");
+const TodosService = require("./todos.service");
 
 module.exports = { TodosService };

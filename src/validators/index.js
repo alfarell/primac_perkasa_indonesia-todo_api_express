@@ -1,4 +1,4 @@
-const TodosValidator = require("./todos");
+const TodosValidator = require("./todos.validator");
 
 module.exports = {
   TodosValidator,

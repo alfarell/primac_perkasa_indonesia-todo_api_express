@@ -1,4 +1,4 @@
-const TodosController = require("./todos");
+const TodosController = require("./todos.controller");
 
 module.exports = {
   TodosController,
