@@ -12,12 +12,12 @@ class TodosValidator {
     if (!body?.title) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'title' is required" });
+        .send({ error: "property 'title' in body payload is required" });
     }
     if (!body?.description) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'description' is required" });
+        .send({ error: "property 'description' in body payload is required" });
     }
 
     next();
@@ -42,12 +42,12 @@ class TodosValidator {
     if (!body?.title) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'title' is required" });
+        .send({ error: "property 'title' in body payload is required" });
     }
     if (!body?.description) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'description' is required" });
+        .send({ error: "property 'description' in body payload is required" });
     }
 
     next();
