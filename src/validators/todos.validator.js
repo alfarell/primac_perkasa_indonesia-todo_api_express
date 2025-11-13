@@ -9,6 +9,11 @@ class TodosValidator {
   static create(req, res, next) {
     const body = req.body;
 
+    if (body?.title?.length < 1) {
+      return res.status(StatusCodes.BAD_REQUEST).send({
+        error: "property 'title' in body payload should not be empty",
+      });
+    }
     if (!body?.title) {
       return res
         .status(StatusCodes.BAD_REQUEST)
@@ -39,15 +44,10 @@ class TodosValidator {
         .status(StatusCodes.BAD_REQUEST)
         .send({ error: "params 'id' is not a valid uuid" });
     }
-    if (!body?.title) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'title' in body payload is required" });
-    }
-    if (!body?.description) {
-      return res
-        .status(StatusCodes.BAD_REQUEST)
-        .send({ error: "property 'description' in body payload is required" });
+    if (body?.title?.length < 1) {
+      return res.status(StatusCodes.BAD_REQUEST).send({
+        error: "property 'title' in body payload should not be empty",
+      });
     }
 
     next();
