@@ -16,6 +16,20 @@ class TodosService {
 
     this.todos.push(payload);
   }
+
+  updateTodo(id, payload) {
+    const findTodosIdx = this.todos.findIndex((todo) => todo.id === id);
+
+    if (findTodosIdx < 0) return findTodosIdx;
+
+    payload.updatedAt = new Date().toISOString();
+    this.todos[findTodosIdx] = {
+      ...this.todos[findTodosIdx],
+      ...payload,
+    };
+
+    return findTodosIdx;
+  }
 }
 
 module.exports = TodosService;
